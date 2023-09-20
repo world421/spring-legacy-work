@@ -1,3 +1,5 @@
+
+
 package com.spring.basic.controller;
 
 import org.springframework.stereotype.Controller;
@@ -28,17 +30,14 @@ public class ResponseController {
 	
 	@GetMapping("/test") //response/test.jsp
 	//public void test(//@RequestParam("age")생략// int age, Model model) {
-		 //model : 데이터를 운반하는 박스 
+		//model : 데이터를 운반하는 박스 
 		//model.addAttribute("age", age);
 		//model.addAttribute("nick", "멍멍이"); //응답하고자하는 page(/test.jsp)로 전송됨
-		
 	//}
 	 */
-	 
-
-	
 		//2. @ModelAttribute를 사용한 화면에 데이터 전송 처리
 		// @RequestParam + model.addAttribute 처럼 동작
+	
 	@GetMapping("/test")
 	public void test(@ModelAttribute("age") int age, Model model) {
 		//model.addAttribute("age",age); 할 필요없음

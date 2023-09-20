@@ -11,17 +11,15 @@ import lombok.*;
  값 자체를 표현하기 때문에 객체의 불변성을 보장해야하며 setter 메서드는 갖지 않는 것을 권장. 
  
  */
-
-
 @Setter @Getter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+
 public class ScoreRequestDTO {
 	
 	private String name;
-	private int kor, eng, math ;//
+	private int kor, eng, math ;
 	//요청들어올때만 사용! 
-	
-	
+
 }

@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/coffee")
-public class CoffeeController {
-
+public class CoffeeController { 
 	@GetMapping("/order")
 	public String coffeeOrder() {
 		System.out.println("/coffee/order : Get 요청");
 		return "response/coffee-form";
 	}
+	
+	
 	
 	//주문하기 버튼을 누르면 들어오는 요청을 받는 메서드
 	@PostMapping("/result")

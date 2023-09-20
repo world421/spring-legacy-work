@@ -27,7 +27,7 @@ public class Score {
 	private String stuName; // 학생 이름
 	private int kor, eng, math; //국,영, 수 점수
 	
-	private int stuNum;
+	private int stuNum; //학번
 	private int total;
 	private double average;
 	private Grade grade;
