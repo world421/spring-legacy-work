@@ -70,11 +70,5 @@ public class ScoreRepositoryImpl implements IScoreRepository {
 		// 서비스가 보내준 새로운 객체로 갈아끼움! 
 		
 	}
-		
-	
-	
-	
-	
-	
-	
+			
 }

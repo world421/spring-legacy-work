@@ -36,10 +36,11 @@ public class ScoreController {
 	
 	
 	// 1번. 성적 등록 화면 띄우기 + 정보 목록 조회
+	///////////////////111111111111111//////////////////
 	@GetMapping("/list")
 	public String list(Model model) {
-		 List<ScoreListResponseDTO> dtoList = service.getList();
-		model.addAttribute("sList", dtoList);
+		List<ScoreListResponseDTO> dtoList = service.getList();
+		model.addAttribute("sList", dtoList); //모델에 리스트담음 
 		return "score/score-list";
 	}
 	

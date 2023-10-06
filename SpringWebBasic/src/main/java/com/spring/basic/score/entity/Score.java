@@ -24,14 +24,12 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Score {
 
+	private int stuNum; //학번
 	private String stuName; // 학생 이름
 	private int kor, eng, math; //국,영, 수 점수
-	
-	private int stuNum; //학번
 	private int total;
 	private double average;
-	private Grade grade;
-	
+	private Grade grade; //enum타입 내가 지정한 상숨수만 들어올수있도	
 	public Score(ScoreRequestDTO dto) {
 		this.stuName = dto.getName();
 		changeScore(dto);
