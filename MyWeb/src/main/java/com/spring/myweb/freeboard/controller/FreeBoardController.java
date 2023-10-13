@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.myweb.freeboard.dto.FreeContentResponseDTO;
-import com.spring.myweb.freeboard.dto.FreeRegistRequestDTO;
-import com.spring.myweb.freeboard.dto.FreeUpdateRequestDTO;
+import com.spring.myweb.freeboard.dto.page.Page;
+import com.spring.myweb.freeboard.dto.page.PageCreator;
+import com.spring.myweb.freeboard.dto.request.FreeRegistRequestDTO;
+import com.spring.myweb.freeboard.dto.request.FreeUpdateRequestDTO;
+import com.spring.myweb.freeboard.dto.response.FreeContentResponseDTO;
 import com.spring.myweb.freeboard.entity.FreeBoard;
 import com.spring.myweb.freeboard.service.IFreeBoardService;
 
@@ -23,13 +25,25 @@ public class FreeBoardController {
 
 	private final IFreeBoardService service;
 	
-	//목록화면 get 으로 오니까 getmapping으로
+	//페이징이 들어간 목록화면 
 	@GetMapping("/freeList")
-	public void freeList(Model model) {
+	public void freeList( Page page, Model model) {
 		System.out.println("/freeboard/freeList:GET!");
+		PageCreator creator;
+		int totalCount = service.getTotal(page);
+		if(totalCount == 0) {
+			page.setKeyword(null);
+			page.setCondition(null);
+			creator = new PageCreator(page, service.getTotal(page));
+			model.addAttribute("msg", "searchFail");
+		}else {
+			creator = new PageCreator(page, totalCount);
+		}
 		
-		model.addAttribute("boardList", service.getList());
 		
+		
+		model.addAttribute("boardList", service.getList(page));
+		model.addAttribute("pc",creator); //모델에 담는거임 ! 
 	}
 	
 	//글 쓰기 페이지를 열어주는 메서드
@@ -49,7 +63,8 @@ public class FreeBoardController {
 	
 	//글 상세보기
 	@GetMapping("/content")
-	public String getContent(int bno,Model model) {
+	public String getContent(int bno,Model model, 
+							@ModelAttribute("p") Page page) {
 		//나중에 jsp 로 보내야해서 model 필요함
 	 	model.addAttribute("article", service.getContent(bno));
 	 	// 서비스가 준거 dto 를  model 에담아서 jsp에 보냄 (forword)
