@@ -24,7 +24,6 @@ public class FreeContentResponseDTO {
 	
 	
 	public FreeContentResponseDTO(FreeBoard board) {
-		super();
 		this.bno = board.getBno();
 		this.title = board.getTitle();
 		this.writer = board.getWriter();

@@ -63,7 +63,9 @@ public class FreeBoardMapperTest {
 	void getListTest() {
 		
 		List<FreeBoard> list = mapper.getList(Page.builder()
-																									.build());
+													.pageNo(4)
+													.amount(10)
+													.build());
 		
 		
 		for(FreeBoard board :list) {
