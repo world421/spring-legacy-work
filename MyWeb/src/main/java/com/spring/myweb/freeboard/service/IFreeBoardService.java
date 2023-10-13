@@ -2,10 +2,11 @@ package com.spring.myweb.freeboard.service;
 
 import java.util.List;
 
-
+import com.spring.myweb.freeboard.dto.FreeContentResponseDTO;
 import com.spring.myweb.freeboard.dto.FreeListResponseDTO;
 import com.spring.myweb.freeboard.dto.FreeRegistRequestDTO;
-import com.spring.myweb.freeboard.entity.FreeBoard;
+import com.spring.myweb.freeboard.dto.FreeUpdateRequestDTO;
+
 
 public interface IFreeBoardService {
 
@@ -16,12 +17,16 @@ public interface IFreeBoardService {
 	List<FreeListResponseDTO> getList();
 	
 	// 상세보기
-	FreeBoard getContent(int bno);
+	FreeContentResponseDTO getContent(int bno);
 	// 수정
-	void update(FreeBoard freeBoard);
+	void update(FreeUpdateRequestDTO dto);
 	
 	// 삭제
 	void delete(int bno);
+
+
+
+	
 
 
 	

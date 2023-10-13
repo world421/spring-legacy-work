@@ -9,6 +9,9 @@ public interface IFreeBoardMapper {
 	
 	// 글 등록 : select 문 조회 
 	void regist(FreeBoard freeBoard);
+	
+	// 총 게시물 구하기
+	int getTotal();
 	 
 	// 글 목록
 	List<FreeBoard> getList();
@@ -20,4 +23,6 @@ public interface IFreeBoardMapper {
 	
 	// 삭제
 	void delete(int bno);
+	
+
 }

@@ -29,7 +29,7 @@ public class FreeListResponseDTO {
 	}
 	
 	
-	private String makePrettierDateString(LocalDateTime regDate) {
+	static String makePrettierDateString(LocalDateTime regDate) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM");
 		return dtf.format(regDate);
 	}

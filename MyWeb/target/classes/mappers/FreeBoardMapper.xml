@@ -14,9 +14,16 @@
  
  	<select id="getList" resultType="freeboard">
  		SELECT * FROM freeboard
+ 		ORDER BY bno DESC
+ 	</select>
+ 	
+ 	<select id="getTotal" resultType="int"> <!-- id는 메서드이름 resultType 반환타입(?)-->
+ 	 	SELECT COUNT(*)
+ 	 	FROM freeboard
  	</select>
  
  	<select id="getContent" resultType="freeboard">
+ 	<!-- 프리보드라는엔터티로 받겠다  -->
  		SELECT * FROM freeboard
  		WHERE bno = #{bno}
  	</select>

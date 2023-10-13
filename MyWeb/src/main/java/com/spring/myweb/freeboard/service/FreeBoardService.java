@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.myweb.freeboard.dto.FreeContentResponseDTO;
 import com.spring.myweb.freeboard.dto.FreeListResponseDTO;
 import com.spring.myweb.freeboard.dto.FreeRegistRequestDTO;
+import com.spring.myweb.freeboard.dto.FreeUpdateRequestDTO;
 import com.spring.myweb.freeboard.entity.FreeBoard;
 import com.spring.myweb.freeboard.mapper.IFreeBoardMapper;
 
@@ -25,7 +27,7 @@ public class FreeBoardService implements IFreeBoardService {
 				.writer(dto.getWriter())
 				.content(dto.getContent())
 				.build());
-				
+		
 
 	}
 
@@ -40,20 +42,24 @@ public class FreeBoardService implements IFreeBoardService {
 	}
 
 	@Override
-	public FreeBoard getContent(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+	//dto 는 서비승쪽에서만 씀 !  
+	public FreeContentResponseDTO getContent(int bno) {
+		return new FreeContentResponseDTO(mapper.getContent(bno));
+
 	}
 
 	@Override
-	public void update(FreeBoard freeBoard) {
-		// TODO Auto-generated method stub
-
+	public void update(FreeUpdateRequestDTO dto) {
+		mapper.update(FreeBoard.builder()
+				.title(dto.getTitle())
+				.content(dto.getContent())
+				.bno(dto.getBno())
+				.build());
 	}
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
+		mapper.delete(bno);
 
 	}
 

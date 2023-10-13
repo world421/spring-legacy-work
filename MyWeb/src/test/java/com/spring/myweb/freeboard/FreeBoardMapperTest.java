@@ -37,21 +37,21 @@ public class FreeBoardMapperTest {
 		//given- when-then 패턴을 따릅니다.(권장사항)
 		//테스트에 필요한 값을 주고 - 가정 - 결과
 		//given : 테스트를 위해 주어질 데이터 세팅(parameter) --given 지금은 생략 
-//		for(int i=1 ; i<=10; i++) {
-//			//when : 테스트 실제 상황 세팅 
-//			mapper.regist(FreeBoard.builder() //mapper.regist 한다는건 db연동한다는뜻
-//					.title("테스트 제목"+ i)
-//					.writer("abc1234")
-//					.content("테스트 내용입니다."+i )
-//					.build()); 
+		for(int i=1 ; i<=300; i++) {
+			//when : 테스트 실제 상황 세팅 
+			mapper.regist(FreeBoard.builder() //mapper.regist 한다는건 db연동한다는뜻
+					.title("페이징 테스트 제목"+ i)
+					.writer("page1234")
+					.content("테스트 내용입니다."+i )
+					.build()); 
 			
-		//}
+		}
 		
-		mapper.regist(FreeBoard.builder() 
-				.title("테스트11")
-				.writer("kim1234")
-				.content("테스트 내용입니다.")
-				.build()); 
+//		mapper.regist(FreeBoard.builder() 
+//				.title("테스트11")
+//				.writer("kim1234")
+//				.content("테스트 내용입니다.")
+//				.build()); 
 		
 		//then: 테스트 결과를 확인.
 		

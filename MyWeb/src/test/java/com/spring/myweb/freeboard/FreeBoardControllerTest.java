@@ -12,12 +12,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.myweb.freeboard.controller.FreeBoardController;
+import com.spring.myweb.freeboard.dto.FreeContentResponseDTO;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml",
@@ -88,9 +91,44 @@ public class FreeBoardControllerTest {
 	@DisplayName("3번 글 상세보기 요청을 넣으면 컨트롤러는 DB에서 가지고 "
 			+ "온 글 객체를 model에 담아 freeDetail.jsp로 이동시킬 것이다.")
 	
-	void testContent() {
-		
+	void testContent() throws Exception {
 		// /freeboard/content -> get 
 		// bno, title, writer, content, updateDate == null ? regDate , updateDate(수정됨)
+		
+		ModelAndView mav = mockMvc.perform(MockMvcRequestBuilders.get("/freeboard/content")
+											.param("bno","3")
+				).andReturn().getModelAndView();
+											// getViewname : 경로가 똑같은지 ! 
+		assertEquals("freeboard/freeDetail",mav.getViewName());
+		FreeContentResponseDTO dto =  (FreeContentResponseDTO) mav.getModelMap().get("article");
+		assertEquals(dto.getBno(), 3);
 	}
+	
+	@Test
+    @DisplayName("3번글의 제목과 내용을 수정하는 요청을 post방식으로 전송하면 수정이 진행되고, "
+            + "수정된 글의 상세보기 페이지로 응답해야 한다.")
+    // /freeboard/modify -> post
+	// 작성자는 수정하지 않음 
+    void testModify() throws Exception {
+		String bno = "5";
+		String viewName =  mockMvc.perform(MockMvcRequestBuilders.post("/freeboard/modify")
+								.param("bno",bno)
+								.param("title","수정수정 글 제목")
+								.param("content","테스트 수정수정 글 내용")
+				).andReturn().getModelAndView().getViewName();
+
+		assertEquals(viewName, "redirect:/freeboard/content?bno=" + bno);
+  
+    }
+    
+    @Test
+    @DisplayName("3번 글을 삭제하면 목록 재요청이 발생할 것이다.")
+    // /freeboard/delete -> post
+    void testDelete() throws Exception {
+    	assertEquals("redirect:/freeboard/freeList",
+    				mockMvc.perform(MockMvcRequestBuilders.post("/freeboard/delete")
+    								.param("bno", "3")
+    								).andReturn().getModelAndView().getViewName());
+    }
+	
 }
