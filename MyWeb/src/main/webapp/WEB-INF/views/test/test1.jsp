@@ -29,9 +29,9 @@
             // querySelectorAll 모든 요소
             const name = document.querySelector('input[name=name]').value;
             const age = document.querySelector('input[name=age]').value;
-            const $hobby = document.querySelectorAll('input[name=hobby]');
+            const $hobby = document.querySelectorAll('input[name=hobby]'); // 일단 체크박스 모두 얻어오기 
 
-            const arr = []; //체크가 된 요소값을 넣기 위한 배열 
+            const arr = []; //체크가 된 요소값을 넣기 위한 배열 //체크한 거만 넣기 
 
             //querySelectorAll 의 리턴값은 NodeList라는 유사 배열 형태 
             //배열의 메서드를 사용하기 위해 실제 배열로 반환하는 문법.
@@ -48,10 +48,10 @@
             console.log(arr);
         
 
-                // #http 요청을 서버로 보내는 방법
+                // #http 요청을 서버로 보내는 방법 (등록요청 보내기 ?)
 
                 // 1. XMLHttpRequest 객체를 생성.
-                const xhr = new XMLHttpRequest();
+                const xhr = new XMLHttpRequest(); //xhr 변수에 xmlhttp 객체를 생성해줌 
 
                 /*
                    2. http 요청 설정 (요청 방식, 요청 URL)
@@ -62,24 +62,24 @@
                     d. DELETE - 삭제
                 */
 
-                xhr.open('POST','/myweb/rest/object');
+                xhr.open('POST','/myweb/rest/object');  //xhr.open(등록, ~ url 로 )
 
                 // 3. 서버로 전송할 데이터를 제작합니다.
                 // 제작하는 데이터의 형식은 JSON 형태여야합니다.
 
-                const data = {
-                    'name ' :name,
+                const data = {                          //
+                    'name' :name,
                     'age' : age,
                     'hobby' : arr 
                 } //이객체는 JSON이 아니라 Javascript 객체이다.
 
                 // JS - >JSON 으로 변경 : JSON.stringify(arg)
             
-                const sendData = JSON.stringify(data); 
+                const sendData = JSON.stringify(data); // stringify : 문자화한다 (data 객체를 ! )
                 
                 //전송할 데이터의 형태가 어떠한지를 요청 헤더에 지정.
-                xhr.setRequestHeader('content-type', 'application'/json)
-
+                xhr.setRequestHeader('content-type', 'application/json')
+               
                 // 4. 서버에 요청 전송
                 xhr.send(sendData);
                 //5. 응답된 정보 확인
@@ -89,16 +89,8 @@
                     //응답 데이터 확인
                     console.log(xhr.response);
                 }
-
-q
-
         }
 
-
-
     </script>
-
-
-
 </body>
 </html>
