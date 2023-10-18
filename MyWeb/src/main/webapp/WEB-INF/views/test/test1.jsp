@@ -62,7 +62,7 @@
                     d. DELETE - 삭제
                 */
 
-                xhr.open('POST','/myweb/rest/object');  //xhr.open(등록, ~ url 로 )
+                xhr.open('POST','${pageContext.request.contextPath}/rest/object');  //xhr.open(등록, ~ url 로 )
 
                 // 3. 서버로 전송할 데이터를 제작합니다.
                 // 제작하는 데이터의 형식은 JSON 형태여야합니다.
