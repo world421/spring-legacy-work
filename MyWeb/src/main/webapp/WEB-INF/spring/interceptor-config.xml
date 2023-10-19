@@ -22,7 +22,7 @@
 			
 			<!-- 로그인 권한 체크 인터셉터 url 매핑 -->
 			<mvc:interceptor>
-				<mvc:mapping path="/freeboard/freeregist"/>
+				<mvc:mapping path="/freeboard/freeRegist"/>
 				<mvc:mapping path="/user/userMypage"/>
 				<!-- <mvc:mapping path="/freeboard/**"/> -->
 				<ref bean="userAuth"/>

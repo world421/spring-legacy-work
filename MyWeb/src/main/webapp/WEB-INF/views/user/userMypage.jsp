@@ -42,7 +42,7 @@
                                     <tr>
                                         <td class="m-title">*E-mail</td>
                                         <td>
-                                            <input class="form-control input-sm" name="userEmail1" value="${userInfo.userEmail}">
+                                            <input class="form-control input-sm" name="userEmail1" value="${userInfo.userEmail1}">
                                             <select class="form-control input-sm sel" name="userEmail2">
                                                 <option ${userInfo.userEmail2 =='@naver.com'? 'selected' : ''}>@naver.com</option>
                                                 <option ${userInfo.userEmail2 =='@daum.net'? 'selected' : ''}>@daum.net</option>
@@ -59,7 +59,7 @@
                                                 <option ${userInfo.userPhone1 == '017' ? 'selected' : '' }>017</option>
                                                 <option ${userInfo.userPhone1 == '018' ? 'selected' : '' }>018</option>
                                             </select>
-                                            <input class="form-control input-sm" name="userPhone2" value="${userInfo.userPhon2}">
+                                            <input class="form-control input-sm" name="userPhone2" value="${userInfo.userPhone2}">
                                         </td>
                                     </tr>
                                     <tr>
