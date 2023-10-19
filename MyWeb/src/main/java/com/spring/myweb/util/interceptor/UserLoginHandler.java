@@ -45,7 +45,6 @@ public class UserLoginHandler implements HandlerInterceptor {
 				//로그인 실패!
 				modelAndView.addObject("msg","loginFail");//로그인을 실패해서 들어온사람이란거 
 				
-				
 			}
 		}
 		
