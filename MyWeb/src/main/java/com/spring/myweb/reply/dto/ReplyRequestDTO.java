@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor 
 @EqualsAndHashCode
 @NoArgsConstructor
-public class ReplyRegistDTO {
+public class ReplyRequestDTO {
  // 변수 명 똑같이 써줘야 커멘트 객체가 됨 
 	
 	private int bno;
@@ -31,7 +31,7 @@ public class ReplyRegistDTO {
 	private String replyId;
 	private String replyPw;
 	
-	public Reply toEntity(ReplyRegistDTO dto) {
+	public Reply toEntity(ReplyRequestDTO dto) {
 		return Reply.builder()
 		.bno(dto.getBno())
 		.replyText(dto.getReplyText())
