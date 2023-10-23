@@ -31,6 +31,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                             <a class="navbar-brand" href="#"><img width="30" src="${pageContext.request.contextPath }/img/logo.svg" alt="Brand"></a>
+                        
                         </div>
 
 

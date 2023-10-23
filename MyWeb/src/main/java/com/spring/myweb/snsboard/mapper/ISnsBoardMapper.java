@@ -3,6 +3,7 @@ package com.spring.myweb.snsboard.mapper;
 import java.util.List;
 
 import com.spring.myweb.freeboard.dto.page.Page;
+import com.spring.myweb.snsboard.dto.SnsBoardResponseDTO;
 import com.spring.myweb.snsboard.entity.SnsBoard;
 
 public interface ISnsBoardMapper {
@@ -16,7 +17,7 @@ public interface ISnsBoardMapper {
 	List<SnsBoard> getList(Page page);
 	
 	//상세
-	SnsBoard getDetail(int bno);
+	SnsBoard getDetail(SnsBoardResponseDTO dto);
 	
 	//삭제
 	void delete(int bno);

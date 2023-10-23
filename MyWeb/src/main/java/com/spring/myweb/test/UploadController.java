@@ -102,21 +102,15 @@ public class UploadController {
 	
 		System.out.println(list.toString());
 		String uploadFolder = "C:/test/upload";
-		for(MultipartFile m :list) {
-			
+
+		for(MultipartFile m : list) {
 			try {
-				if(m.getSize()==0)break;
 				File saveFile = new File(uploadFolder + "/" + m.getOriginalFilename());
 				m.transferTo(saveFile);
-			} catch (IllegalStateException e) {
-				
-				e.printStackTrace();
-			} catch (IOException e) {
-				
+			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		return "fileupload/upload_ok";
 	}
