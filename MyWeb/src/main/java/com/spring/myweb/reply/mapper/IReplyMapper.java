@@ -25,6 +25,7 @@ public interface IReplyMapper {
 	
 	List<Reply> getList(Map<String, Object> data); // 서비스는 map으로 포장해서 보내라고 요청함 key 가 xml 에서 사용할 식별자 
 	
+	
 	//댓글 개수 (페이징, PageCreator 는 사용하지 않습니다.) => 비동기방식에서 사용하는 
 	int getTotal(int bno);
 	

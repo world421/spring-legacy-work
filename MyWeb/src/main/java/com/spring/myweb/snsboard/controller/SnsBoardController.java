@@ -189,4 +189,11 @@ public class SnsBoardController {
 			return service.searchLike(params);
 		}
 		
+		// 회원이 글 목록 으로 진입시 좋아요게시물 리스트 체크
+		@GetMapping("/likeList/{userId}")
+		public List<Integer> likeList(@PathVariable String userId) {//자바 List 는 자바스크립트에 없어서 제이슨으로 받아야함
+			log.info("/snsboard/likeLis :GET , userId: {}",userId);
+			return service.likeList(userId);
+		}
+		
 }

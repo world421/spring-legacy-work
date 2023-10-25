@@ -28,4 +28,7 @@ public interface ISnsBoardMapper {
 	
 	// 좋아요 삭제
 	void deleteLike(Map<String,String> params);
+
+	// 특정 회원의 좋아요 글 번호
+	List<Integer> likeList(String userId); // 객체들의 모음이라 integer로 써줘야함 
 }

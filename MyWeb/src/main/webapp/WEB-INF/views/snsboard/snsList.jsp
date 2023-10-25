@@ -347,7 +347,7 @@
 					document.getElementById('content').value = ''; // 글영역비우기
 					document.querySelector('.fileDiv').style.display= 'none';//미리보긱마추기
 					
-					getList(1,true); //글 목록 함수 호출.
+					getLikeList(1,true); //글 목록 함수 호출.
 				});
 			}
 
@@ -360,9 +360,48 @@
 
 			const $contentDiv = document.getElementById('contentDiv');
 
-			getList(1,true);
+			getLikeList(1,true);
 
-			function getList(page,reset){
+			// 지금 게시판에 들어온 회원의 좋아요 게시물 목록을 받아오는 함수.
+			function getLikeList(page,reset){
+				const userId = '${login}'; // 세션에 login으로 저장
+				console.log('userId : ' , userId);
+
+				/*
+				특정 데이터를 브라우저가 제공하는 공간에 저장할 수 있습니다.
+				localStorage,sessionStorage => 수명의 차이점이 있습니다.
+				localStoraga : 브라우저가 종료되더라도 데이터는 유지됩니다.
+							   브라우저 탭이 여러개 존재하더라도 데이터가 공유됩니다.
+
+				sessionStorage : 브라우저가 종료되면 데이터가 소멸됩니다.
+								 브라우저 탭 별로 데이터가 저장되기 때문에 공유되지 않습니다.
+
+
+
+				*/
+				if(userId !== ''){
+					if(sessionStorage.getItem('likeList')){// likeList 가 존재하는징 
+						console.log('sessionStorage에 list 가 존재함 ')
+						getList(page,reset, sessionStorage.getItem('likeList'));
+						return;
+					} 
+					fetch('${pageContext.request.contextPath}/snsboard/likeList/'+ userId)
+					
+						.then(res =>res.json())
+						.then(list => {
+							console.log('좋아요 글 목록 받아옴! : ', list)
+							sessionStorage.setItem('likeList', list);
+							getList(page,reset,list); 
+							// getLikeList  부터 호출된 다음에 게시물 목록 받아와야 
+							// 비동기라 누가 먼저 끝날지 보장이 안되어서
+							//then 안에서 호출해야함 
+						});
+					}else{
+						getList(page,reset ,null);
+					}
+				}
+
+			function getList(page,reset, likeList){
 				str='';
 				isFinish = false; // 
 				console.log('page' ,page);
@@ -376,6 +415,7 @@
 					console.log(list.length);
 					if(list.length <=0) { 	//서버로부터 전달받은 길이가 0이면 실행 x 
 						isFinish = true; 
+						reqStatus = true;
 						return;
 					}
 				
@@ -412,13 +452,21 @@
                         </div>
                         <div class="like-inner">
                             <!--좋아요-->
-                            <img src="${pageContext.request.contextPath}/img/icon.jpg"> <span>522</span>
+                            <img src="${pageContext.request.contextPath}/img/icon.jpg"> <span>`+ board.likeCnt +`</span>
                         </div>
-                        <div class="link-inner">
-                            <a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like1.png" width="20px" height="20px"/> 좋아요</a>
+                        <div class="link-inner">`;
+							if(likeList) {
+                                if(likeList.includes(board.bno)) {
+                                    str += `<a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like2.png" width="20px" height="20px" />&nbsp;좋아요</a>`;
+                                } else {
+                                    str += `<a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like1.png" width="20px" height="20px" />&nbsp;좋아요</a>`;
+                                }
+                            } else {
+                                str += `<a id="likeBtn" href="` + board.bno + `"><img src="${pageContext.request.contextPath}/img/like1.png" width="20px" height="20px" />&nbsp;좋아요</a>`;
+                            }
+                            str += `
                             <a data-bno="` + board.bno + `" id="comment" href="` + board.bno + `"><i class="glyphicon glyphicon-comment"></i>댓글달기</a>
                             <a id="delBtn" href="` + board.bno + `"><i class="glyphicon glyphicon-remove"></i>삭제하기</a>
-							
                         </div>`;
 				}
 
@@ -450,11 +498,11 @@
 			// 다운로드 처리
 			if(e.target.matches('.title #download')){ 
 				if(confirm('다운로드를 진행할게요.!')){
-					location.href = e.target.getAttribute('href');
+					location.href = e.target.getAttribute('href');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 				}
 				return;
 			}
-
+			
 			// 삭제 처리
 			if(e.target.matches('.link-inner #delBtn')){
 				//삭제 처리
@@ -463,8 +511,8 @@
 				//서버쪽에서 권한을 확인 해 주세요. (작성자와 로그인 중인 사용자의 id를 비교해서 일치하는지의 여부)
 				//일치하지 않는다면 문자열 "noAuth" 리턴, 삭제 완료하면 "success" 리턴
 				//url: /snsboard/글번호 method: DELETE
-				confirm('삭제를 진행하겠습니까?')
-				return;
+				
+
 								
 			const bno = e.target.getAttribute('href')
 			
@@ -534,7 +582,7 @@
         */
 
 		const handleScroll = _.throttle(()=> {
-			console.log('throttle activate!');
+			//console.log('throttle activate!');
 			const scrollPosition = window.pageYOffset; // Y 축 포지션
 			const height = document.body.offsetHeight; 
 			const windowHeight = window.innerHeight;
@@ -542,7 +590,7 @@
 			if(isFinish){
 				if(scrollPosition + windowHeight >= height * 0.9 ){
 					console.log('next page call!');
-					getList(++page,false);
+					getLikeList(++page,false);	
 				}
 			}
 
@@ -585,6 +633,7 @@
 					e.target.firstElementChild.setAttribute('src', '${pageContext.request.contextPath}/img/like2.png')  // 지금 이벤트가 발생한 a태그 
 					e.target.style.color = 'blue';
 					const $cnt = e.target.parentNode.previousElementSibling.children[1];
+					// 이벤트.발생한타겟.부모.형제중.2번째 자식 
 					$cnt.textContent = Number($cnt.textContent) + 1;
 				}else{
 
@@ -593,9 +642,13 @@
 					const $cnt = e.target.parentNode.previousElementSibling.children[1];
 					$cnt.textContent = Number($cnt.textContent) - 1;
 				}
-			})
-		
+			})		
 		});
+
+
+
+
+
 
 		//자바 스크립트 파일 미리보기 기능
         function readURL(input) {

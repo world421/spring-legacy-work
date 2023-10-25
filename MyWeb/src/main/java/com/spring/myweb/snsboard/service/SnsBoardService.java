@@ -102,13 +102,18 @@ public class SnsBoardService {
 	}
 
 	public String searchLike(Map<String, String> params) {
-		if(mapper.searchLike(params) == 0) {
-			mapper.createLike(params);
+		if(mapper.searchLike(params) == 0) { // 누른적이없따 
+			mapper.createLike(params);	// 매퍼엽 ~ 해줘 ( ) 줄게 
 			return "like";
 		}else {
 			mapper.deleteLike(params);
 		}	return "delete";
-		// 매퍼엽 ~ 해줘 ( ) 줄게 
+	
+	}
+
+	public List<Integer> likeList(String userId) {
+		return mapper.likeList(userId);
+		
 	}
 
 
